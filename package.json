@@ -15,5 +15,11 @@
   "bugs": {
     "url": "https://github.com/hawaiiey/my-react/issues"
   },
-  "homepage": "https://github.com/hawaiiey/my-react#readme"
+  "homepage": "https://github.com/hawaiiey/my-react#readme",
+  "dependencies": {
+    "babel-core": "^6.26.3",
+    "babel-plugin-transform-react-jsx": "^6.24.1",
+    "babel-preset-env": "^1.6.1",
+    "parcel-bundler": "^1.7.1"
+  }
 }
