@@ -1,9 +1,10 @@
 import React from './React'
+import ReactDOM from './ReactDOM'
 
-const element = (
-  <div className="ddd" aaa="ddd">
-    hello<span>world!!!</span>
-  </div>
+ReactDOM.render(
+  <h1 className="content">
+    <p style="width:300px;background:red">hello world !!!</p>
+    <p style={{ width:'300px',border: '2px solid #000' }}>hello world !!!</p>
+  </h1>,
+  document.getElementById('root'),
 )
-
-console.log(element)
