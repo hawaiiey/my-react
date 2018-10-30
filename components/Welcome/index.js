@@ -1,7 +1,7 @@
-import React from '../../React'
+import React, { Component } from '../../React'
 import Name from '../Name'
 
-export default class Welcome extends React.Component {
+export default class Welcome extends Component {
   render() {
     return <h1>
       Hello,

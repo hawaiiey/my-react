@@ -1,7 +1,7 @@
 import React from '../../React'
 
-export default class Name extends React.Component {
-  render() {
-    return <span>{this.props.name}</span>
-  }
+const Name = (props) => {
+  return <span>{props.name}</span>
 }
+
+export default Name

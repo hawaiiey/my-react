@@ -1,6 +1,6 @@
-import React from '../../React'
+import React, { Component } from '../../React'
 
-export default class Counter extends React.Component {
+export default class Counter extends Component {
   constructor(props) {
     super(props)
     this.state = { num: 0 }
