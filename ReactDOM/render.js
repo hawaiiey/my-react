@@ -116,11 +116,11 @@ export function renderComponent (component) {
   const { componentWillUpdate, componentDidUpdate, componentDidMount } = component
   let base
 
-  // render，返回虚拟DOM
-  const renderer = component.render()
-
   // 若不是第一次渲染，则执行componentWillUpdate
   if (component.base && componentWillUpdate) componentWillUpdate()
+
+  // render，返回虚拟DOM
+  const renderer = component.render()
 
   // 赋值base为真实DOM
   base = _render(renderer)
