@@ -1,5 +1,5 @@
 import setAttribute from './setAttribute'
-import { createComponent, setComponentProps, renderComponent } from './render'
+import { createComponent, setComponentProps, renderComponent, unmountComponent } from './componentCycle'
 
 /**
  *
@@ -10,6 +10,7 @@ import { createComponent, setComponentProps, renderComponent } from './render'
  *
  */
 export function diff (dom, vnode) {
+  console.log(dom, vnode)
   let out = dom
 
   if (vnode === undefined || vnode === null || typeof vnode === 'boolean') vnode = ''
@@ -217,29 +218,4 @@ function isSameNodeType(dom, vnode) {
   if (typeof vnode.tag === 'string') return dom.nodeName.toLowerCase() === vnode.tag.toLowerCase()
 
   return dom && dom._component && dom._component.constructor === vnode.tag;
-}
-
-/**
- *
- * @param {class} component react component
- *
- * @description 卸载组件
- *
- */
-function unmountComponent(component) {
-  if (component.componentWillUnmount) component.componentWillUnmount()
-  removeNode(component.base)
-}
-
-/**
- *
- * @param {DOM} dom 真实DOM
- *
- * @description 删除DOM
- *
- */
-function removeNode (dom) {
-  if (dom && dom.parentNode) {
-    dom.parentNode.removeChild(dom)
-  }
 }

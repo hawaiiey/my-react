@@ -1,4 +1,4 @@
-import { renderComponent } from '../ReactDOM/render'
+import { renderComponent } from '../ReactDOM/componentCycle'
 
 export default class Component {
   constructor(props = {}) {
