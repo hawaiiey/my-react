@@ -1,5 +1,6 @@
 import setAttribute from './setAttribute'
 import { Component } from '../React'
+import { diff } from './diff'
 
 /**
  *
@@ -9,7 +10,7 @@ import { Component } from '../React'
  * @description 将虚拟DOM处理成真实DOM后，放入真实DOM容器
  *
  */
-export function render (vnode, container) {
+function render (vnode, container) {
   return container.appendChild(_render(vnode))
 }
 
@@ -35,8 +36,9 @@ function _render (vnode) {
   // 如果vnode.tag为function时，创建react component赋值组件props
   if (typeof tag === 'function') {
     const component = createComponent(tag, attrs)
-    setComponentProps(component, attrs)
-    return component.base
+    const _component = setComponentProps(component, attrs)
+    renderComponent(_component)
+    return _component.base
   // 如果vnode.tag为DOM元素标签时，创建真实DOM
   } else {
     // 创建DOM
@@ -102,7 +104,7 @@ function setComponentProps (component, props) {
 
   component.props = props
 
-  renderComponent(component)
+  return component
 }
 
 /**
@@ -112,7 +114,7 @@ function setComponentProps (component, props) {
  * @description 渲染组件的方法，setState方法中会直接调用这个方法进行重新渲染。其中可实现componentWillUpdate、componentDidUpdate、componentDidMount三个生命周期方法
  *
  */
-export function renderComponent (component) {
+function renderComponent (component) {
   const { componentWillUpdate, componentDidUpdate, componentDidMount } = component
   let base
 
@@ -123,7 +125,7 @@ export function renderComponent (component) {
   const renderer = component.render()
 
   // 赋值base为真实DOM
-  base = _render(renderer)
+  base = diff(component.base, renderer)
 
   // 如果不是首次渲染，则执行componentDidUpdate
   if (component.base) {
@@ -134,11 +136,18 @@ export function renderComponent (component) {
   }
 
   // 如果不是首次渲染且存在父元素，则用新的DOM替换旧的DOM
-  if (component.base && component.base.parentNode) {
-    component.base.parentNode.replaceChild(base, component.base)
-  }
+  // if (component.base && component.base.parentNode) {
+  //   component.base.parentNode.replaceChild(base, component.base)
+  // }
 
   // 将base挂载到component上
   component.base = base
   base._component = component
+}
+
+export {
+  render,
+  createComponent,
+  setComponentProps,
+  renderComponent,
 }
