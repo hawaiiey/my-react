@@ -22,6 +22,7 @@ function render (vnode, container) {
  *
  */
 function _render (vnode) {
+  console.log(vnode)
   // 当vnode为undefined、null、boolean时，渲染结果为''
   if (vnode === undefined || vnode === null || typeof vnode === 'boolean') vnode = ''
 
