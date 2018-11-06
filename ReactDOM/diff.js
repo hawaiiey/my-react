@@ -6,7 +6,7 @@ import { createComponent, setComponentProps, renderComponent, unmountComponent }
  * @param {DOM} dom 真实DOM
  * @param {object} vnode 虚拟DOM
  *
- * @description 对比真实DOM和虚拟DOM，在对比过程中直接更新真实DOM。之对比同一层级的变化
+ * @description 对比真实DOM和虚拟DOM，在对比过程中直接更新真实DOM。只对比同一层级的变化
  *
  */
 export function diff (dom, vnode) {

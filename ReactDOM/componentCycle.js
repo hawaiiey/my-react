@@ -59,11 +59,12 @@ function setComponentProps (component, props) {
  *
  */
 function renderComponent (component) {
-  const { componentWillUpdate, componentDidUpdate, componentDidMount } = component
+  // 千万不能用结构！！！会导致原型链丢失！！！this变为undefined！！！
+  // const { componentWillUpdate, componentDidUpdate, componentDidMount } = component
   let base
 
   // 若不是第一次渲染，则执行componentWillUpdate
-  if (component.base && componentWillUpdate) componentWillUpdate()
+  if (component.base && component.componentWillUpdate) component.componentWillUpdate()
 
   // render，返回虚拟DOM
   const renderer = component.render()
@@ -73,10 +74,10 @@ function renderComponent (component) {
 
   // 如果不是首次渲染，则执行componentDidUpdate
   if (component.base) {
-    if (componentDidUpdate) componentDidUpdate()
+    if (component.componentDidUpdate) component.componentDidUpdate()
   // 如果是首次渲染，则执行componentDidMount
-  } else if (componentDidMount) {
-    componentDidMount()
+  } else if (component.componentDidMount) {
+    component.componentDidMount()
   }
 
   // 如果不是首次渲染且存在父元素，则用新的DOM替换旧的DOM
