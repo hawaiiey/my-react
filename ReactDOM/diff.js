@@ -10,7 +10,7 @@ import { createComponent, setComponentProps, renderComponent, unmountComponent }
  *
  */
 export function diff (dom, vnode) {
-  console.log(dom, vnode)
+  console.log('diff', dom, vnode)
   let out = dom
 
   if (vnode === undefined || vnode === null || typeof vnode === 'boolean') vnode = ''

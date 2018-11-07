@@ -12,6 +12,10 @@ export default class Counter extends Component {
 
   componentDidMount() {
     console.log('didmount')
+    for (let i = 0; i < 100; i++) {
+      // this.setState({ num: this.state.num + 1 }) // 1
+      this.setState(prevState => ({ num: prevState.num + 1 })) // 100
+    }
   }
 
   componentWillReceiveProps() {
