@@ -7,11 +7,11 @@ export default class Counter extends Component {
   }
 
   componentWillMount() {
-    console.log('willmount')
+    console.log('<Counter />: willmount!!!')
   }
 
   componentDidMount() {
-    console.log('didmount')
+    console.log('<Counter />: didmount!!!')
     for (let i = 0; i < 100; i++) {
       // this.setState({ num: this.state.num + 1 }) // 1
       this.setState(prevState => ({ num: prevState.num + 1 })) // 100
@@ -19,15 +19,15 @@ export default class Counter extends Component {
   }
 
   componentWillReceiveProps() {
-    console.log('willreceiveprops')
+    console.log('<Counter />: willreceiveprops!!!')
   }
 
   componentWillUpdate() {
-    console.log('willupdate')
+    console.log('<Counter />: willupdate!!!')
   }
 
   componentDidUpdate() {
-    console.log('didupdate')
+    console.log('<Counter />: didupdate!!!')
   }
 
   _onClick() {
@@ -35,7 +35,7 @@ export default class Counter extends Component {
   }
 
   render() {
-    console.log('render', this.props, this.state)
+    console.log('<Counter />: render!!!', 'props: ', this.props, 'state: ', this.state)
     return (
       <div>
         <h1>number: {this.state.num}</h1>

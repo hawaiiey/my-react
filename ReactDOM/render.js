@@ -1,16 +1,22 @@
 import setAttribute from './setAttribute'
 import { createComponent, setComponentProps, renderComponent } from './componentCycle'
+import { diff } from './diff'
 
 /**
  *
  * @param {object} vnode 虚拟DOM
  * @param {DOM} container 真实的DOM容器
+ * @param {DOM} dom 真实DOM
  *
- * @description 将虚拟DOM处理成真实DOM后，放入真实DOM容器
+ * @description 清空容器的DOM，并直接进入diff算法
  *
  */
-export default function render (vnode, container) {
-  return container.appendChild(_render(vnode))
+export default function render (vnode, container, dom) {
+  // 每次调用时，清除原来挂载在DOM的内容
+  container.innerHTML = ''
+
+  // return container.appendChild(_render(vnode))
+  return diff(dom, vnode, container)
 }
 
 /**
@@ -21,7 +27,7 @@ export default function render (vnode, container) {
  *
  */
 function _render (vnode) {
-  console.log(vnode)
+  console.log('_render', vnode)
   // 当vnode为undefined、null、boolean时，渲染结果为''
   if (vnode === undefined || vnode === null || typeof vnode === 'boolean') vnode = ''
 
