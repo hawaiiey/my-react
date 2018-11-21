@@ -1,5 +1,5 @@
 import { Component } from '../React'
-import { diff } from './diff'
+import { diffNode } from './diff'
 
 /**
  *
@@ -59,7 +59,7 @@ function setComponentProps (component, props) {
  *
  */
 function renderComponent (component) {
-  // 千万不能用结构！！！会导致原型链丢失！！！this变为undefined！！！
+  // 千万不能用解构！！！会导致原型链丢失！！！this变为undefined！！！
   // const { componentWillUpdate, componentDidUpdate, componentDidMount } = component
   let base
 
@@ -70,7 +70,7 @@ function renderComponent (component) {
   const renderer = component.render()
 
   // 赋值base为真实DOM
-  base = diff(component.base, renderer)
+  base = diffNode(component.base, renderer)
 
   // 如果不是首次渲染，则执行componentDidUpdate
   if (component.base) {

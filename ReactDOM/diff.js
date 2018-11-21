@@ -5,12 +5,32 @@ import { createComponent, setComponentProps, renderComponent, unmountComponent }
  *
  * @param {DOM} dom 真实DOM
  * @param {object} vnode 虚拟DOM
+ * @param {DOM} container 真实DOM容器
+ *
+ * @description 比较真实DOM和虚拟DOM，并将最终得到的真实DOM放入真实DOM容器中
+ *
+ */
+export function diff (dom, vnode, container) {
+  console.log('diff')
+  const ret = diffNode(dom, vnode)
+
+  if (container && ret.parentNode !== container) {
+    container.appendChild(ret)
+  }
+
+  return ret
+}
+
+/**
+ *
+ * @param {DOM} dom 真实DOM
+ * @param {object} vnode 虚拟DOM
  *
  * @description 对比真实DOM和虚拟DOM，在对比过程中直接更新真实DOM。只对比同一层级的变化
  *
  */
-export function diff (dom, vnode) {
-  console.log('diff', dom, vnode)
+export function diffNode (dom, vnode) {
+  console.log('diffnode', dom, vnode)
   let out = dom
 
   if (vnode === undefined || vnode === null || typeof vnode === 'boolean') vnode = ''
@@ -106,6 +126,7 @@ function diffComponent (dom, vnode) {
  *
  */
 function diffAttributes (dom, vnode) {
+  console.log('diffattr')
   const oldAttrs = {} // 当前DOM的属性
   const attrs = vnode.attrs || {} // 虚拟DOM的属性
 
@@ -135,6 +156,7 @@ function diffAttributes (dom, vnode) {
  *
  */
 function diffChildren (dom, vchildren) {
+  console.log('diffchild')
   const domChildren = dom.childNodes // DOM子节点
   const children = [] // 没有key的子节点
   const keyed = {} // 有key的子节点以及它的key
@@ -183,7 +205,7 @@ function diffChildren (dom, vchildren) {
       }
 
       // 对比
-      child = diff(child, vchild)
+      child = diffNode(child, vchild)
 
       // 更新DOM
       const f = domChildren[i]
