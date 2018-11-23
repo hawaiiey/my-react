@@ -34,7 +34,7 @@ function createComponent (component, props) {
  * @param {object} props 组件属性
  *
  * @description 组件赋值属性的方法，其中可实现componentWillMount、componentWillReceiveProps两个生命周期方法
- * @returns 赋值后的组件
+ * @returns 渲染组件函数
  *
  */
 function setComponentProps (component, props) {
@@ -48,7 +48,7 @@ function setComponentProps (component, props) {
 
   component.props = props
 
-  return component
+  return renderComponent(component)
 }
 
 /**

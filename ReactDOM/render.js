@@ -1,5 +1,5 @@
 import setAttribute from './setAttribute'
-import { createComponent, setComponentProps, renderComponent } from './componentCycle'
+import { createComponent, setComponentProps } from './componentCycle'
 import { diff } from './diff'
 
 /**
@@ -42,9 +42,8 @@ function _render (vnode) {
   // 如果vnode.tag为function时，创建react component赋值组件props
   if (typeof tag === 'function') {
     const component = createComponent(tag, attrs)
-    const _component = setComponentProps(component, attrs)
-    renderComponent(_component)
-    return _component.base
+    setComponentProps(component, attrs)
+    return component.base
   // 如果vnode.tag为DOM元素标签时，创建真实DOM
   } else {
     // 创建DOM

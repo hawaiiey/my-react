@@ -1,5 +1,5 @@
 import setAttribute from './setAttribute'
-import { createComponent, setComponentProps, renderComponent, unmountComponent } from './componentCycle'
+import { createComponent, setComponentProps, unmountComponent } from './componentCycle'
 
 /**
  *
@@ -104,8 +104,7 @@ function diffComponent (dom, vnode) {
     }
 
     c = createComponent(vnode.tag, vnode.attrs)
-    c = setComponentProps(c, vnode.attrs)
-    renderComponent(c)
+    setComponentProps(c, vnode.attrs)
     dom = c.base
 
     if (oldDom && dom !== oldDom) {
